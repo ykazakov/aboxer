@@ -68,6 +68,7 @@ class AssertionCreator extends AbstractAxiomVisitor {
 
 	// counters for statistics
 	private int countNewIndividuals_ = 0;
+	private int countAnonymousIndividuals_ = 0;
 	private int countNewClassAssertions_ = 0;
 	private int countNewObjectPropertyAssertions_ = 0;
 
@@ -120,6 +121,8 @@ class AssertionCreator extends AbstractAxiomVisitor {
 
 	void printStatistics() {
 		LOGGER_.debug("new individual declarations: {}", countNewIndividuals_);
+		LOGGER_.debug("new anonymous individuals: {}",
+				countAnonymousIndividuals_);
 		LOGGER_.debug("new class assertions: {}", countNewClassAssertions_);
 		LOGGER_.debug("new object property assertions: {}",
 				countNewObjectPropertyAssertions_);
@@ -171,6 +174,7 @@ class AssertionCreator extends AbstractAxiomVisitor {
 				OWLObjectPropertyExpression property) {
 			// create a fresh anonymous individual
 			OWLIndividual newContext = factory_.getOWLAnonymousIndividual();
+			countAnonymousIndividuals_++;
 			// create an object property assertion connecting it with the old
 			// individual
 			OWLAxiom axiom = factory_.getOWLObjectPropertyAssertionAxiom(
